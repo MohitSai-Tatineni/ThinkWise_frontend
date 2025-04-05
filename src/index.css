@@ -5,5 +5,10 @@ body {
     @apply font-sans;
     font-family: 'Inter', sans-serif;
     background-color: #fafafa;
+    @keyframes pulse-light {
+        0%, 100% { opacity: 0.8; }
+        50% { opacity: 1; }
+      }
+      
   }
   

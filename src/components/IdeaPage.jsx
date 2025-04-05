@@ -1,4 +1,3 @@
-// components/IdeaPage.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import IdeaChatBot from './IdeaChatBot';
@@ -72,11 +71,13 @@ export default function IdeaPage() {
             </div>
             <h1 className="text-xl font-extrabold text-gray-800 tracking-tight">Idea Prioritizer</h1>
           </div>
-          
         </div>
 
-        <h2 className="text-lg font-semibold mb-4 text-purple-700 flex items-center gap-2">🔥 Top 3 Ideas
-            <span className='text-sm text-gray-400'>Curated by ROI + Effort</span></h2>
+        <h2 className="text-lg font-semibold mb-4 text-purple-700 flex items-center gap-2">
+          Previous Top 3 Ideas
+          <span className='text-sm text-gray-400'>Curated by ROI + Effort</span>
+        </h2>
+
         {topIdeas.map((idea, idx) => (
           <div key={idea.id} className={`bg-white p-4 mb-4 rounded-lg shadow hover:shadow-xl transition-transform duration-300 ease-out transform hover:-translate-y-1 hover:scale-[1.02] animate-fade-in-up delay-[${idx * 100}]`}>
             <h3 className="font-semibold text-sm text-gray-900 mb-1">{idea.title}</h3>
@@ -120,86 +121,106 @@ export default function IdeaPage() {
             }}
             className="w-full text-left px-4 py-3 bg-gradient-to-r from-blue-400 to-indigo-500 text-white text-sm font-semibold rounded-xl shadow hover:scale-105 transition"
           >
-            Search Ideas
+             Search Ideas
           </button>
         </div>
       </div>
 
       {/* Main Panel */}
       <div className="flex-1 flex justify-center items-center p-6">
-      {selectedIdea ? (
-  <div className="w-full h-full animate-slide-up-fade transition-all duration-700 ease-in-out">
-    <IdeaChatBot idea={selectedIdea} onBack={() => setSelectedIdea(null)} />
-  </div>
-
-
+        {selectedIdea ? (
+          <div className="w-full h-full animate-slide-up-fade transition-all duration-700 ease-in-out">
+            <IdeaChatBot idea={selectedIdea} onBack={() => setSelectedIdea(null)} />
+          </div>
         ) : showAnalytics ? (
           <AnalyticsPage />
         ) : showSearch ? (
           <SearchIdeasPage />
         ) : showForm ? (
-          <div className="w-full max-w-xl bg-white p-6 rounded-xl shadow-lg animate-fade-in">
-            <h2 className="text-2xl font-bold mb-4 text-center">📝 Submit Your Idea</h2>
-            <div className="space-y-4">
-              <input
-                name="title"
-                maxLength={150}
-                value={formData.title}
-                onChange={handleChange}
-                placeholder="Enter title (max 30 words)"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-              />
-              <input
-                name="category"
-                maxLength={150}
-                value={formData.category}
-                onChange={handleChange}
-                placeholder="Enter category (max 30 words)"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-              />
-              <textarea
-                name="description"
-                maxLength={1000}
-                value={formData.description}
-                onChange={handleChange}
-                placeholder="Enter description (max 200 words)"
-                rows={4}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-              ></textarea>
-              <div className="flex justify-end gap-4">
-                <button
-                  onClick={() => setShowForm(false)}
-                  className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
-                >
-                  Submit
-                </button>
-              </div>
+          <div className="w-full max-w-xl bg-white p-6 rounded-xl shadow-lg animate-fade-in space-y-4">
+            <h2 className="text-2xl font-bold text-center text-indigo-700">✍️ Submit a Game-Changing Idea</h2>
+            <p className="text-sm text-gray-500 text-center">Every big product started with a wild idea. Yours could be next.</p>
+            <input
+              name="Full Name"
+              maxLength={150}
+              value={formData.title}
+              onChange={handleChange}
+              placeholder=" Full Name"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+            />
+            <input
+              name="title"
+              maxLength={150}
+              value={formData.title}
+              onChange={handleChange}
+              placeholder=" Idea Title"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+            />
+            <input
+              name="category"
+              maxLength={150}
+              value={formData.category}
+              onChange={handleChange}
+              placeholder=" Category (e.g., AI, HR, Sales...)"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+            />
+            <textarea
+              name="description"
+              maxLength={1000}
+              value={formData.description}
+              onChange={handleChange}
+              placeholder=" Describe your idea in detail..."
+              rows={4}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+            />
+            <p className="text-xs text-gray-400 text-right">Max 200 words</p>
+            <div className="flex justify-end gap-4">
+              <button
+                onClick={() => setShowForm(false)}
+                className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubmit}
+                className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+              >
+                Submit Idea
+              </button>
             </div>
           </div>
         ) : (
-          <div className="text-center space-y-10">
+          <div className="text-center space-y-10 animate-fade-in">
             <h1 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-br from-purple-700 via-pink-500 to-indigo-700 animate-pulse">
-              🚀 <span className="mirror">Ready to Share Your Ideas?</span><br /><span className='text-xs font-medium text-purple-500'>Your ideas deserve to be heard, ranked, and realized ✨</span>
+              🌱 Got a Brilliant Idea?
+              <br />
+              <span className="text-xs font-medium text-purple-500">Let it bloom, get ranked, and make an impact ✨</span>
             </h1>
-            <div className="flex space-x-4 justify-center">
-              <button
-                onClick={() => alert("File upload coming soon")}
-                className="bg-white border border-gray-300 px-6 py-2 rounded-full shadow hover:bg-gray-100"
-              >
-                📎 Upload File
-              </button>
-              <button
-                onClick={() => setShowForm(true)}
-                className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-2 rounded-full shadow hover:scale-105 transition"
-              >
-                💡 Enter Idea
-              </button>
+            <div className="flex flex-col items-center space-y-6">
+              <div className="flex space-x-4 justify-center">
+                <button
+                  onClick={() => alert("📎 File upload feature coming soon!")}
+                  className="bg-white border border-gray-300 px-6 py-2 rounded-full shadow hover:bg-gray-100"
+                >
+                  📎 Upload Idea File
+                </button>
+                <button
+                  onClick={() => setShowForm(true)}
+                  className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-2 rounded-full shadow hover:scale-105 transition"
+                >
+                  💡 Enter Idea Manually
+                </button>
+              </div>
+
+              <div className="text-sm text-gray-600 max-w-xl text-center space-y-2 mt-2 px-4">
+                <p>
+                  📎 <strong>Upload Idea File</strong> lets you submit a file (CSV/JSON) containing multiple ideas.
+                  We'll analyze and extract the <span className="text-purple-600 font-medium">Top 3 Ideas</span> using parameters like <strong>ROI</strong>, <strong>Effort</strong>, and <strong>Score</strong>.
+                </p>
+                <p>
+                  💡 <strong>Enter Idea Manually</strong> allows you to input a single idea and receive an instant evaluation of its <strong>ROI</strong>, <strong>Effort</strong>, and a calculated <strong>Score</strong> from our AI engine.
+                </p>
+              </div>
             </div>
           </div>
         )}
